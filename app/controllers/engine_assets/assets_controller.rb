@@ -5,6 +5,10 @@ class EngineAssets::AssetsController < ApplicationController
   before_filter :expire, :set_headers
   after_filter  :cache
 
+  def show
+    render File.join('engine_assets', controller_name, params[:path])
+  end
+
 
   private
 
