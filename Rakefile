@@ -4,12 +4,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "engine-assets"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "corey@coolerator.net"
-    gem.homepage = "http://github.com/coreyti/engine-assets"
-    gem.authors = ["Corey Innis"]
+    gem.name        = "engine-assets"
+    gem.summary     = "Rails Engines with assets."
+    gem.description = "A Rails Engine, which enables Rails Engines to provide assets (javascript, css and images)"
+    gem.email       = "support@coolerator.net"
+    gem.homepage    = "http://github.com/coreyti/engine-assets"
+    gem.authors     = ["Corey Innis"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
