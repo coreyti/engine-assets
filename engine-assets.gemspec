@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
-  s.date = %q{2009-11-06}
+  s.date = %q{2009-11-07}
   s.description = %q{A Rails Engine, which enables Rails Engines to provide assets (javascript, css and images)}
   s.email = %q{support@coolerator.net}
   s.extra_rdoc_files = [
@@ -28,18 +28,29 @@ Gem::Specification.new do |s|
      "app/controllers/engine_assets/javascripts_controller.rb",
      "app/controllers/engine_assets/stylesheets_controller.rb",
      "config/routes.rb",
+     "engine-assets.gemspec",
      "lib/engine-assets.rb",
+     "lib/engine_assets/extensions/rails/plugin.rb",
      "lib/engine_assets/extensions/rails/routes.rb",
      "lib/engine_assets/public_locator.rb",
      "rails/init.rb",
+     "spec/controllers/javascripts_controller_spec.rb",
+     "spec/controllers/stylesheets_controller_spec.rb",
      "spec/routing/javascripts_routing_spec.rb",
      "spec/routing/stylesheets_routing_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/spec_suite.rb",
-     "spec/support/fixtures/app/views/javascripts/asset.js.erb",
-     "spec/support/fixtures/public/javascripts/asset.js",
-     "spec/support/helpers/textmate_helper.rb"
+     "spec/support/fixtures/app/views/engine_assets/javascripts/dual.js.erb",
+     "spec/support/fixtures/app/views/engine_assets/javascripts/solo.js.erb",
+     "spec/support/fixtures/app/views/engine_assets/stylesheets/dual.css.erb",
+     "spec/support/fixtures/app/views/engine_assets/stylesheets/solo.css.erb",
+     "spec/support/fixtures/public/javascripts/dual.js",
+     "spec/support/fixtures/public/stylesheets/dual.css",
+     "spec/support/helpers/fixture_helper.rb",
+     "spec/support/helpers/textmate_helper.rb",
+     "spec/support/shared/assets_controller_spec.rb",
+     "spec/support/shared/assets_routing_spec.rb"
   ]
   s.homepage = %q{http://github.com/coreyti/engine-assets}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -47,11 +58,16 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Rails Engines with assets.}
   s.test_files = [
-    "spec/routing/javascripts_routing_spec.rb",
+    "spec/controllers/javascripts_controller_spec.rb",
+     "spec/controllers/stylesheets_controller_spec.rb",
+     "spec/routing/javascripts_routing_spec.rb",
      "spec/routing/stylesheets_routing_spec.rb",
      "spec/spec_helper.rb",
      "spec/spec_suite.rb",
-     "spec/support/helpers/textmate_helper.rb"
+     "spec/support/helpers/fixture_helper.rb",
+     "spec/support/helpers/textmate_helper.rb",
+     "spec/support/shared/assets_controller_spec.rb",
+     "spec/support/shared/assets_routing_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
