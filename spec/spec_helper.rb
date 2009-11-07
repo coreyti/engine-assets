@@ -11,6 +11,7 @@ require 'spec'
 require 'spec/autorun'
 require 'spec/rails'
 require 'support/helpers/textmate_helper'
+require 'support/shared/assets_routing_spec'
 
 Spec::Runner.configure do |config|
   include Support::Helpers
