@@ -11,6 +11,10 @@ begin
     gem.homepage    = "http://github.com/coreyti/engine-assets"
     gem.authors     = ["Corey Innis"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.files      += Dir['app/**/*.rb']
+    gem.files      += Dir['lib/**/*.rb']
+    gem.files.uniq!  # TODO (CTI): figure out why I'm having to do this manipulation.
+
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

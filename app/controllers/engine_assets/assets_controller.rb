@@ -6,7 +6,12 @@ class EngineAssets::AssetsController < ApplicationController
   after_filter  :cache
 
   def show
-    render File.join('engine_assets', controller_name, params[:path])
+    flat_file = EngineAssets::PublicLocator.locate(File.join(controller_name, [params[:path], params[:format]].join('.')))
+    if(flat_file)
+      render(:file => flat_file)
+    else
+      render(:template => File.join('engine_assets', controller_name, params[:path]), :layout => false)
+    end
   end
 
 
