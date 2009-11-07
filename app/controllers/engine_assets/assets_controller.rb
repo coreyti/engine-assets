@@ -10,7 +10,11 @@ class EngineAssets::AssetsController < ApplicationController
     if(flat_file)
       render(:file => flat_file)
     else
-      render(:template => File.join('engine_assets', controller_name, params[:path]), :layout => false)
+      begin
+        render(:template => File.join('engine_assets', controller_name, params[:path]), :layout => false)
+      rescue ActionView::MissingTemplate
+        head :not_found
+      end
     end
   end
 

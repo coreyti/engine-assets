@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'A controller routed as an AssetsController', :shared => true do
+describe "A controller routed as an AssetsController", :shared => true do
   attr_reader :prefix, :format
 
   describe "routing" do

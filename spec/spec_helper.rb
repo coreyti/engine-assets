@@ -10,7 +10,9 @@ require 'engine-assets'
 require 'spec'
 require 'spec/autorun'
 require 'spec/rails'
+require 'support/helpers/fixture_helper'
 require 'support/helpers/textmate_helper'
+require 'support/shared/assets_controller_spec'
 require 'support/shared/assets_routing_spec'
 
 Spec::Runner.configure do |config|
