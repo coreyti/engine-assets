@@ -24,4 +24,8 @@ Spec::Runner.configure do |config|
   config.mock_with :rr
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
+
+  def basedir
+    @basedir ||= "#{File.expand_path(File.join(File.dirname(__FILE__), '..'))}"
+  end
 end
