@@ -1,5 +1,4 @@
 if defined?(ActionController::Routing::RouteSet)
-
   class ActionController::Routing::RouteSet
     def load_routes_with_assets!
       lib_path      = File.dirname(__FILE__)
