@@ -3,6 +3,10 @@ RAILS_PATH = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'van
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift(dir)
 
+def require_files(*segments)
+  Dir[File.expand_path(File.join(*segments))].each { |file| require file }
+end
+
 ENV["RAILS_ENV"] = "test"
 
 require "#{File.join(RAILS_PATH, 'config', 'environment')}"
@@ -10,10 +14,8 @@ require 'engine-assets'
 require 'spec'
 require 'spec/autorun'
 require 'spec/rails'
-require 'support/helpers/fixture_helper'
-require 'support/helpers/textmate_helper'
-require 'support/shared/assets_controller_spec'
-require 'support/shared/assets_routing_spec'
+
+require_files(dir, 'support', '**', '*.rb')
 
 Spec::Runner.configure do |config|
   include Support::Helpers
@@ -22,13 +24,4 @@ Spec::Runner.configure do |config|
   config.mock_with :rr
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-
-  # def add_fixture_views(controller_class)
-  #   controller_class.prepend_view_path(File.join(basepath, '..', 'fixtures', 'app', 'views'))
-  #   controller_class.prepend_view_path(File.join(basepath, '..', 'fixtures', 'public'))
-  # end
-  # 
-  # def basepath
-  #   @basepath ||= File.join(File.dirname(__FILE__), '..')
-  # end
 end
