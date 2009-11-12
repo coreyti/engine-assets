@@ -1,15 +1,10 @@
 module ActionView::Helpers::AssetTagHelper
-  def expand_javascript_sources(sources, recursive = false)
+  def expand_javascript_sources_with_engine_assets(sources, recursive = false)
     if sources.include?(:all)
-      all_javascript_files = collect_asset_files(JAVASCRIPTS_DIR, ('**' if recursive), '*.js')
-      result = ((determine_source(:defaults, @@javascript_expansions).dup) + all_javascript_files).uniq
-      result
+      return (determine_source(:defaults, @@javascript_expansions).dup | expand_javascript_sources_without_engine_assets(sources, recursive))
     else
-      expanded_sources = sources.collect do |source|
-        determine_source(source, @@javascript_expansions)
-      end.flatten
-      expanded_sources << "application" if sources.include?(:defaults) && File.exist?(File.join(JAVASCRIPTS_DIR, "application.js"))
-      expanded_sources
+      raise NotImplementedError
     end
   end
+  alias_method_chain :expand_javascript_sources, :engine_assets
 end
