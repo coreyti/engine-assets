@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.2.1"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
-  s.date = %q{2009-11-07}
+  s.date = %q{2009-11-08}
   s.description = %q{A Rails Engine, which enables Rails Engines to provide assets (javascript, css and images)}
   s.email = %q{support@coolerator.net}
   s.extra_rdoc_files = [
@@ -30,12 +30,16 @@ Gem::Specification.new do |s|
      "config/routes.rb",
      "engine-assets.gemspec",
      "lib/engine-assets.rb",
-     "lib/engine_assets/extensions/rails/plugin.rb",
+     "lib/engine_assets/extensions/rails/assets.rb",
+     "lib/engine_assets/extensions/rails/plugins.rb",
      "lib/engine_assets/extensions/rails/routes.rb",
      "lib/engine_assets/public_locator.rb",
      "rails/init.rb",
      "spec/controllers/javascripts_controller_spec.rb",
      "spec/controllers/stylesheets_controller_spec.rb",
+     "spec/lib/engine_assets/extensions/rails/plugins_spec.rb",
+     "spec/lib/engine_assets/extensions/rails/routes_spec.rb",
+     "spec/lib/engine_assets/public_locator_spec.rb",
      "spec/routing/javascripts_routing_spec.rb",
      "spec/routing/stylesheets_routing_spec.rb",
      "spec/spec.opts",
@@ -60,6 +64,9 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/controllers/javascripts_controller_spec.rb",
      "spec/controllers/stylesheets_controller_spec.rb",
+     "spec/lib/engine_assets/extensions/rails/plugins_spec.rb",
+     "spec/lib/engine_assets/extensions/rails/routes_spec.rb",
+     "spec/lib/engine_assets/public_locator_spec.rb",
      "spec/routing/javascripts_routing_spec.rb",
      "spec/routing/stylesheets_routing_spec.rb",
      "spec/spec_helper.rb",
