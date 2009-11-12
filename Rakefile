@@ -10,7 +10,7 @@ begin
     gem.email       = "support@coolerator.net"
     gem.homepage    = "http://github.com/coreyti/engine-assets"
     gem.authors     = ["Corey Innis"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "rspec", ">= 1.2.8"
     gem.files      += Dir['app/**/*.rb']
     gem.files      += Dir['lib/**/*.rb']
     gem.files.uniq!  # TODO (CTI): figure out why I'm having to do this manipulation.
