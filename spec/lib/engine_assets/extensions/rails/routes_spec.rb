@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec/spec_helper'
 
 describe ActionController::Routing::RouteSet do
   describe "#load_routes!" do
@@ -22,7 +22,7 @@ describe ActionController::Routing::RouteSet do
 
     it "adds the engine-assets routes configuration" do
       routeset.load_routes!
-      routeset.configuration_files[0].should =~ /engine-assets.*\/config\/routes\.rb/
+      routeset.configuration_files[0].should =~ /engine[-_ ]assets.*\/config\/routes\.rb/
     end
   end
 end

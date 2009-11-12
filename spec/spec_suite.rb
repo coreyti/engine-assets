@@ -1,25 +1,23 @@
 class SpecSuite
   def files
-    dir = File.dirname(__FILE__)
     Dir["#{dir}/../spec/**/*_spec.rb"]
   end
 
   def run
-    basedir = File.join(File.dirname(__FILE__), '..')
-    libdir  = File.join(basedir, 'lib')
-    specdir = File.join(basedir, 'spec')
+    $LOAD_PATH.unshift(File.join(dir, '..'))
+    $LOAD_PATH.unshift(File.join(dir, '..', 'lib'))
 
-    $LOAD_PATH.unshift(basedir)
-    $LOAD_PATH.unshift(libdir)
-    $LOAD_PATH.unshift(specdir)
-
-    ARGV.concat ["--options", "#{specdir}/spec.opts"]
+    ARGV.concat ["--options", "#{dir}/spec.opts"]
 
     files.each do |file|
       require file
     end
     result = ::Spec::Runner::CommandLine.run
     exit result
+  end
+
+  def dir
+    @dir ||= File.dirname(__FILE__)
   end
 end
 

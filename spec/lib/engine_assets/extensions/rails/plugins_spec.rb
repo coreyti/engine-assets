@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec/spec_helper'
 
 describe Rails::Plugin::Loader do
   attr_reader :loader, :plugin, :directory
