@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.3.2"
+  s.version = "0.3.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
-  s.date = %q{2009-11-13}
+  s.date = %q{2009-11-17}
   s.description = %q{A Rails Engine, which enables Rails Engines to provide assets (javascript, css and images)}
   s.email = %q{support@coolerator.net}
   s.extra_rdoc_files = [
