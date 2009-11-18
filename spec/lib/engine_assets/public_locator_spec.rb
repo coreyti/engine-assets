@@ -9,7 +9,7 @@ describe EngineAssets::PublicLocator do
     @find_path = '/javascripts/dual.js'
     @miss_path = '/javascripts/miss.js'
 
-    EngineAssets::PublicLocator.paths << base_path
+    EngineAssets::PublicLocator.paths << full_path
   end
 
   describe "#locate" do
