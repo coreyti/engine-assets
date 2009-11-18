@@ -1,7 +1,14 @@
 class EngineAssets::PublicLocator
   class << self
-    def paths
+    attr_reader :paths
+
+    def register(full_path)
       @paths ||= []
+
+      public_path = File.join(full_path, 'public')
+      File.open(public_path) {}
+
+      paths << public_path
     end
 
     def locate(file_path)
@@ -10,6 +17,13 @@ class EngineAssets::PublicLocator
         return full_path if File.exist?(full_path)
       end
       nil
+    end
+
+
+    private
+
+    def clear
+      @paths = []
     end
   end
 end
