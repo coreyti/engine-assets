@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'config/routes'
 
 describe "A controller routed as an AssetsController", :shared => true do
   attr_reader :prefix, :format
