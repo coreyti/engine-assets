@@ -11,8 +11,10 @@ unless defined?(RAILS_PATH)
   ENV["RAILS_ENV"] = "test"
 
   require "#{File.join(RAILS_PATH, 'config', 'environment')}"
-  require 'engine-assets'
-  require 'spec'
+  require "#{File.join(File.dirname(__FILE__), '..', 'lib', 'engine-assets')}"
+  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'assets_controller.rb')}"
+  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'javascripts_controller.rb')}"
+  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'stylesheets_controller.rb')}"
   require 'spec/autorun'
   require 'spec/rails'
 
