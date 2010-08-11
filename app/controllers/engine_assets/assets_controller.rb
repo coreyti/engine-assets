@@ -1,6 +1,4 @@
-class EngineAssets::AssetsController < ApplicationController
-  unloadable
-
+class EngineAssets::AssetsController < ActionController::Base
   layout        nil
   before_filter :expire, :set_headers
   after_filter  :cache
