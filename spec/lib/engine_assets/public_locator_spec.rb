@@ -5,7 +5,7 @@ describe EngineAssets::PublicLocator do
 
   before do
     @base_path = File.join('fixtures', 'public')
-    @full_path = File.join(basedir, 'spec', 'support', 'fixtures')
+    @full_path = File.join(SPEC_DIR, 'support', 'fixtures')
     @find_path = '/javascripts/dual.js'
     @miss_path = '/javascripts/miss.js'
 

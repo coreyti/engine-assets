@@ -1,35 +1,74 @@
-unless defined?(RAILS_PATH)
-  RAILS_PATH = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'vanilla'))
+require 'rubygems'
 
-  dir = File.dirname(__FILE__)
-  $LOAD_PATH.unshift(dir)
+unless defined?(PROJECT_ROOT)
+  PROJECT_ROOT   = File.expand_path(File.join(File.dirname(__FILE__), '..')).freeze
+  SPEC_DIR       = File.join(PROJECT_ROOT, 'spec').freeze
+  TEMP_DIR       = File.join(PROJECT_ROOT, 'tmp').freeze
+  BUILT_GEM_ROOT = File.join(TEMP_DIR, 'built_gems').freeze
+  LOCAL_GEM_ROOT = File.join(TEMP_DIR, 'local_gems').freeze
+  WEBAPP_ROOT    = File.join(TEMP_DIR, 'rails_root').freeze
+end
 
-  def require_files(*segments)
-    Dir[File.expand_path(File.join(*segments))].each { |file| require file }
-  end
+Dir[File.join(SPEC_DIR, 'support', '**', '*.rb')].each { |f| require f }
 
-  ENV["RAILS_ENV"] = "test"
+unless @webapp
+  ENV["RAILS_ENV"] ||= 'test'
 
-  require "#{File.join(RAILS_PATH, 'config', 'environment')}"
-  require "#{File.join(File.dirname(__FILE__), '..', 'lib', 'engine-assets')}"
-  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'assets_controller.rb')}"
-  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'javascripts_controller.rb')}"
-  require "#{File.join(File.dirname(__FILE__), '..', 'app', 'controllers', 'engine_assets', 'stylesheets_controller.rb')}"
-  require 'spec/autorun'
+  @webapp = Support::Rails.new(ENV['RAILS_VERSION'])
+  @webapp.build
+  @webapp.setup
+end
+
+require 'lib/engine-assets'
+%w(app config).each do |dir|
+  Dir[File.join(PROJECT_ROOT, dir, '**', '*.rb')].each { |f| require f }
+end
+
+Dir[File.join(SPEC_DIR, 'shared', '**', '*.rb')].each { |f| require f }
+
+begin
+  # RSpec 1.3 (Rails 2)
   require 'spec/rails'
-
-  require_files(dir, 'support', '**', '*.rb')
+  require 'spec/autorun'
+  require 'rr'
 
   Spec::Runner.configure do |config|
     include Support::Helpers
 
-    config.fixture_path = "#{File.dirname(__FILE__)}/../spec/support/fixtures"
+    config.fixture_path = File.join(SPEC_DIR, 'support', 'fixtures')
     config.mock_with :rr
-    config.use_transactional_fixtures = true
-    config.use_instantiated_fixtures  = false
+  end
+rescue LoadError
+  # RSpec 2.0 (Rails 3)
+  require 'rspec'
+  require 'rspec/rails'
+  require 'rr'
 
-    def basedir
-      @basedir ||= "#{File.expand_path(File.join(File.dirname(__FILE__), '..'))}"
-    end
+  RSpec.configure do |config|
+    include Support::Helpers
+
+    # config.fixture_path = File.join(SPEC_DIR, 'support', 'fixtures')
+    config.mock_framework = :rr
   end
 end
+
+
+
+# begin
+#   # RSpec 1.3 (Rails 2)
+#   require 'spec/rails'
+#   require 'spec/autorun'
+# rescue LoadError
+#   # RSpec 2.0 (Rails 3)
+#   require 'rspec'
+#   require 'rspec/rails'
+# end
+# 
+# Dir[File.join(SPEC_DIR, 'shared', '**', '*.rb')].each { |f| require f }
+# 
+# Spec::Runner.configure do |config|
+#   include Support::Helpers
+# 
+#   config.fixture_path = File.join(SPEC_DIR, 'support', 'fixtures')
+#   config.mock_with :rr
+# end
