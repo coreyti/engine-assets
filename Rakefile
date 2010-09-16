@@ -211,9 +211,10 @@ def define_spec_rails
       end
     end
 
-    # disabled for now, until I can resolve the rspec lib switching
-    # desc "Run specs for this gem with all Rails versions"
-    # task :all => RAILS_VERSIONS
+    desc "Run specs for this gem with all Rails versions"
+    task :all => [:gemspec, 'shared:vendor_dependencies'] do
+      RAILS_VERSIONS.each { |version| system("rake spec:rails:#{version}") }
+    end
   end
 end
 
