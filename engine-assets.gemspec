@@ -93,17 +93,23 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<cucumber>, ["~> 0.8.5"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
+      s.add_development_dependency(%q<rr>, ["~> 1.0.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_development_dependency(%q<term-ansicolor>, ["~> 1.0.5"])
     else
       s.add_dependency(%q<cucumber>, ["~> 0.8.5"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
+      s.add_dependency(%q<rr>, ["~> 1.0.0"])
+      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_dependency(%q<term-ansicolor>, ["~> 1.0.5"])
     end
   else
     s.add_dependency(%q<cucumber>, ["~> 0.8.5"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
+    s.add_dependency(%q<rr>, ["~> 1.0.0"])
+    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
     s.add_dependency(%q<term-ansicolor>, ["~> 1.0.5"])
   end
