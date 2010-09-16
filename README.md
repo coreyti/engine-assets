@@ -48,8 +48,8 @@ Acknowledgments
 
   * thoughtbot <http://thoughtbot.com/>  
     For insight regarding techniques for running Cucumber features against
-    multiple versions of Rails.
+    multiple versions of Rails (in hoptoad_notifier).
   * Michael Bleigh <http://mbleigh.com>  
     For insight regarding techniques for running RSpec specs against multiple
-    versions of Rails.
+    versions of Rails (in acts-as-taggable-on).
 
