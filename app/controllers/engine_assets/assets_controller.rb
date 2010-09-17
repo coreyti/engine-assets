@@ -1,4 +1,4 @@
-class EngineAssets::AssetsController < ActionController::Base
+class EngineAssets::AssetsController < ApplicationController
   layout        nil
   before_filter :expire, :set_headers
   after_filter  :cache
