@@ -24,6 +24,10 @@ module RailsHelpers
     end
   end
 
+  def rails_environment
+    @rails_environment ||= 'production'
+  end
+
   def bundler_manages_gems?
     File.exists?(gemfile_path)
   end
@@ -38,6 +42,14 @@ module RailsHelpers
 
   def environment_path
     File.join(RAILS_ROOT, 'config', 'environment.rb')
+  end
+
+  def rails_generate(arguments)
+    command = rails3? ? 'rails generate' : 'script/generate'
+
+    @terminal.cd(RAILS_ROOT)
+    @terminal.run("#{command} #{arguments}")
+    @terminal.run("RAILS_ENV=#{rails_environment} rake db:migrate")
   end
 
   def bundle_gem(gem_name)
@@ -57,7 +69,7 @@ module RailsHelpers
     end
   end
 
-  def perform_request(uri, environment = 'production')
+  def perform_request(uri)
     # NOTE (CTI):
     # modified from thoughtbot's original to return headers and status.
     if rails3?
@@ -77,7 +89,7 @@ module RailsHelpers
       SCRIPT
       File.open(File.join(RAILS_ROOT, 'request.rb'), 'w') { |file| file.write(request_script) }
       @terminal.cd(RAILS_ROOT)
-      @terminal.run("./script/rails runner -e #{environment} request.rb")
+      @terminal.run("./script/rails runner -e #{rails_environment} request.rb")
     elsif rails_uses_rack?
       request_script = <<-SCRIPT
         require 'config/environment'
@@ -103,7 +115,7 @@ module RailsHelpers
       SCRIPT
       File.open(File.join(RAILS_ROOT, 'request.rb'), 'w') { |file| file.write(request_script) }
       @terminal.cd(RAILS_ROOT)
-      @terminal.run("./script/runner -e #{environment} request.rb")
+      @terminal.run("./script/runner -e #{rails_environment} request.rb")
     else
       raise "Rails versions earlier than 2.3 are not supported"
     end

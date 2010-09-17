@@ -46,6 +46,10 @@ When /^I configure my application to require the "([^"]*)" gem$/ do |gem_name|
   end
 end
 
+When /^I configure my application to run in the "([^"]*)" environment$/ do |environment|
+  @rails_environment = environment
+end
+
 When /^I check the configured gem version$/ do
   version = ENV['RAILS_VERSION']
   rails3  = version =~ /^3/
@@ -60,19 +64,8 @@ When /^I check the configured gem version$/ do
   @terminal.run(%Q{#{command} 'puts "Current version: #\{EngineAssets.version\}"'})
 end
 
-When /^I generate a new plugin named "([^"]*)"$/ do |name|
-  version = ENV['RAILS_VERSION']
-  rails3  = version =~ /^3/
-
-  if rails3
-    raise "TODO"
-    # command = 'rails runner'
-  else
-    command = 'script/generate'
-  end
-
-  @terminal.cd(RAILS_ROOT)
-  @terminal.run(%Q{#{command} plugin #{name}})
+When /^I generate a new "([^"]*)" ([^\s]*)$/ do |name, generator|
+  rails_generate("#{generator} #{name}")
 end
 
 When /^I save the following as "([^\"]*)"$/ do |path, string|
@@ -84,13 +77,13 @@ When /^I perform a request to "([^\"]*)"$/ do |uri|
   perform_request(uri)
 end
 
-Then /^I should receive the following response:$/ do |table|
+Then /^I should receive a response matching the following:$/ do |table|
   hash   = table.transpose.hashes.first
   result = JSON.parse(@terminal.result)
 
   if hash['200']
     result['status'].should == 200
-    result['body']  .should == hash['200']
+    result['body']  .should =~ /#{hash['200']}/
   else
     raise "Don't know how to handle #{hash.inspect}"
   end
