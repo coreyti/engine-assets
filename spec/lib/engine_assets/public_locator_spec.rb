@@ -10,27 +10,38 @@ describe EngineAssets::PublicLocator do
     @miss_path = '/javascripts/miss.js'
 
     EngineAssets::PublicLocator.send(:clear)
+    EngineAssets::PublicLocator.register(full_path)
   end
 
   describe "#register" do
-    before do
-      EngineAssets::PublicLocator.register(full_path)
-    end
-
     context "when the suggest path does not exist" do
       it "raises an exception" do
         lambda {
           EngineAssets::PublicLocator.register('bogus')
-        }.should raise_error(Errno::ENOENT)
+        }.should raise_error(ArgumentError)
       end
     end
 
     context "when the suggest path does not contain a 'public' directory" do
-      it "raises an exception" do
+      before do
+        EngineAssets::PublicLocator.send(:clear)
+      end
+
+      it "does not raise an exception" do
         lambda {
           EngineAssets::PublicLocator.register(File.dirname(__FILE__))
-        }.should raise_error(Errno::ENOENT)
+        }.should_not raise_error
       end
+
+      it "does not add the path" do
+        EngineAssets::PublicLocator.register(File.dirname(__FILE__))
+        EngineAssets::PublicLocator.paths.should be_empty
+      end
+      # it "raises an exception" do
+      #   lambda {
+      #     EngineAssets::PublicLocator.register(File.dirname(__FILE__))
+      #   }.should raise_error(Errno::ENOENT)
+      # end
     end
 
     context "when the suggest path is valid" do
@@ -42,26 +53,22 @@ describe EngineAssets::PublicLocator do
 
   describe "#locate" do
     context "when the requested sub-path is located" do
-      before do
-        EngineAssets::PublicLocator.register(full_path)
-      end
-
       it "returns the full path to the file" do
         EngineAssets::PublicLocator.locate(find_path).should =~ /#{File.join(base_path, find_path)}/
       end
     end
 
     context "when the requested sub-path is not located" do
-      before do
-        EngineAssets::PublicLocator.register(full_path)
-      end
-
       it "returns nil" do
         EngineAssets::PublicLocator.locate(miss_path).should be_nil
       end
     end
 
     context "when no asset-providing engines have registered" do
+      before do
+        EngineAssets::PublicLocator.send(:clear)
+      end
+
       it "returns nil" do
         EngineAssets::PublicLocator.locate(miss_path).should be_nil
       end

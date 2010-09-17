@@ -3,12 +3,11 @@ class EngineAssets::PublicLocator
     attr_reader :paths
 
     def register(full_path)
+      raise ArgumentError unless File.exist?(full_path)
+
       @paths ||= []
-
       public_path = File.join(full_path, 'public')
-      File.open(public_path) {}
-
-      paths << public_path
+      paths << public_path if File.exist?(public_path)
     end
 
     def locate(file_path)
