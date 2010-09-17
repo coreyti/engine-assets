@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.4.2"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
@@ -34,6 +34,8 @@ Gem::Specification.new do |s|
      "features/rails.feature",
      "features/step_definitions/rails_steps.rb",
      "features/support/env.rb",
+     "features/support/rails.rb",
+     "features/support/terminal.rb",
      "init.rb",
      "lib/engine-assets.rb",
      "lib/engine_assets/extensions/rails/assets.rb",

@@ -27,7 +27,7 @@ class Terminal
   end
 
   def run(command)
-    output << "#{command}\n"
+    @output = "#{command}\n"
 
     FileUtils.cd(@cwd) do
       cmdline = "#{environment_settings} #{command} 2>&1"
@@ -64,10 +64,11 @@ class Terminal
     install_to(BUILT_GEM_ROOT, target)
   end
 
+
   private
 
   def install_to(root, gem)
-    `gem install -i #{root} --no-ri --no-rdoc #{gem}`
+    `gem install -i #{root} --no-ri --no-rdoc #{gem}` # textmate!! `
   end
 
   def environment_settings

@@ -46,6 +46,26 @@ When /^I configure my application to require the "([^"]*)" gem$/ do |gem_name|
   end
 end
 
+When /^I check the configured gem version$/ do
+  version = ENV['RAILS_VERSION']
+  rails3  = version =~ /^3/
+
+  if rails3
+    command = 'rails runner'
+  else
+    command = 'script/runner'
+  end
+
+  @terminal.cd(RAILS_ROOT)
+  @terminal.run(%Q{#{command} 'puts "Current version: #\{EngineAssets.version\}"'})
+end
+
+Then /^I should see "([^\"]*)"$/ do |expected_text|
+  unless @terminal.output.include?(expected_text)
+    raise("Got terminal output:\n#{@terminal.output}\n\nExpected output:\n#{expected_text}")
+  end
+end
+
 Then /^the command should have run successfully$/ do
   @terminal.status.exitstatus.should == 0
 end
