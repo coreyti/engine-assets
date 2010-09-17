@@ -60,6 +60,27 @@ When /^I check the configured gem version$/ do
   @terminal.run(%Q{#{command} 'puts "Current version: #\{EngineAssets.version\}"'})
 end
 
+When /^I save the following as "([^\"]*)"$/ do |path, string|
+  FileUtils.mkdir_p(File.join(RAILS_ROOT, File.dirname(path)))
+  File.open(File.join(RAILS_ROOT, path), 'w') { |file| file.write(string) }
+end
+
+When /^I perform a request to "([^\"]*)"$/ do |uri|
+  perform_request(uri)
+end
+
+Then /^I should receive the following response:$/ do |table|
+  hash   = table.transpose.hashes.first
+  result = JSON.parse(@terminal.result)
+
+  if hash['200']
+    result['status'].should == 200
+    result['body']  .should == hash['200']
+  else
+    raise "Don't know how to handle #{hash.inspect}"
+  end
+end
+
 Then /^I should see "([^\"]*)"$/ do |expected_text|
   unless @terminal.output.include?(expected_text)
     raise("Got terminal output:\n#{@terminal.output}\n\nExpected output:\n#{expected_text}")

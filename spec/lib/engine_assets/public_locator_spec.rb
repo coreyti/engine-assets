@@ -10,10 +10,13 @@ describe EngineAssets::PublicLocator do
     @miss_path = '/javascripts/miss.js'
 
     EngineAssets::PublicLocator.send(:clear)
-    EngineAssets::PublicLocator.register(full_path)
   end
 
   describe "#register" do
+    before do
+      EngineAssets::PublicLocator.register(full_path)
+    end
+
     context "when the suggest path does not exist" do
       it "raises an exception" do
         lambda {
@@ -39,12 +42,26 @@ describe EngineAssets::PublicLocator do
 
   describe "#locate" do
     context "when the requested sub-path is located" do
+      before do
+        EngineAssets::PublicLocator.register(full_path)
+      end
+
       it "returns the full path to the file" do
         EngineAssets::PublicLocator.locate(find_path).should =~ /#{File.join(base_path, find_path)}/
       end
     end
 
     context "when the requested sub-path is not located" do
+      before do
+        EngineAssets::PublicLocator.register(full_path)
+      end
+
+      it "returns nil" do
+        EngineAssets::PublicLocator.locate(miss_path).should be_nil
+      end
+    end
+
+    context "when no asset-providing engines have registered" do
       it "returns nil" do
         EngineAssets::PublicLocator.locate(miss_path).should be_nil
       end
