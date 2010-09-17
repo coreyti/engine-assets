@@ -89,6 +89,11 @@ Then /^I should receive a response matching the following:$/ do |table|
   end
 end
 
+Then /^The first line of the "([^"]*)" file should be$/ do |path, string|
+  lines = File.readlines(File.join(RAILS_ROOT, path))
+  lines[0].strip.should == string
+end
+
 Then /^I should see "([^\"]*)"$/ do |expected_text|
   unless @terminal.output.include?(expected_text)
     raise("Got terminal output:\n#{@terminal.output}\n\nExpected output:\n#{expected_text}")

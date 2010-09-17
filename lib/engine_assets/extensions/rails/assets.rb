@@ -15,4 +15,12 @@ module ActionView::Helpers::AssetTagHelper
     end
   end
   alias_method_chain :expand_javascript_sources, :engine_assets
+
+  def asset_file_path_with_engine_assets(path)
+    primary = asset_file_path_without_engine_assets(path)
+    return primary if File.exist?(primary)
+
+    EngineAssets::PublicLocator.locate(path)
+  end
+  alias_method_chain :asset_file_path, :engine_assets
 end

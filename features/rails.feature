@@ -87,3 +87,41 @@ Feature: Install this Gem in a Rails application
     And  I perform a request to "http://example.com:1234/examples"
     Then I should receive a response matching the following:
       | 200 | /javascripts/example.js |
+
+  Scenario: Send a production request for an application webpage which references an engine-hosted asset
+    When I generate a new Rails application
+    And  I configure my application to require the "engine-assets" gem
+    And  I configure my application to run in the "production" environment
+    And  I save the following as "config/initializers/assets.rb"
+      """
+      ActionView::Helpers::AssetTagHelper.register_javascript_expansion :defaults => [
+        'example.js'
+      ]
+      """
+    And  I generate a new "example" scaffold
+    And  I save the following as "app/views/layouts/examples.html.erb"
+      """
+      <html>
+      <head>
+        <%= javascript_include_tag :all, :cache => true, :recursive => true -%>
+      </head>
+      <body></body>
+      </html>
+      """
+    And  I generate a new "example_plugin" plugin
+    And  I save the following as "vendor/plugins/example_plugin/init.rb"
+      """
+      require 'engine-assets'
+      EngineAssets::PublicLocator.register(File.join(File.dirname(__FILE__)))
+      """
+    And  I save the following as "vendor/plugins/example_plugin/public/javascripts/example.js"
+      """
+      // example.js content
+      """
+    And  I perform a request to "http://example.com:1234/examples"
+    Then I should receive a response matching the following:
+      | 200 | /javascripts/all.js |
+    And  The first line of the "public/javascripts/all.js" file should be
+      """
+      // example.js content
+      """
