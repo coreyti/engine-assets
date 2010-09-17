@@ -60,6 +60,21 @@ When /^I check the configured gem version$/ do
   @terminal.run(%Q{#{command} 'puts "Current version: #\{EngineAssets.version\}"'})
 end
 
+When /^I generate a new plugin named "([^"]*)"$/ do |name|
+  version = ENV['RAILS_VERSION']
+  rails3  = version =~ /^3/
+
+  if rails3
+    raise "TODO"
+    # command = 'rails runner'
+  else
+    command = 'script/generate'
+  end
+
+  @terminal.cd(RAILS_ROOT)
+  @terminal.run(%Q{#{command} plugin #{name}})
+end
+
 When /^I save the following as "([^\"]*)"$/ do |path, string|
   FileUtils.mkdir_p(File.join(RAILS_ROOT, File.dirname(path)))
   File.open(File.join(RAILS_ROOT, path), 'w') { |file| file.write(string) }
