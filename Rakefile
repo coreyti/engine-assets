@@ -87,12 +87,14 @@ begin
       RAILS_VERSIONS.each do |version|
         desc "Run features for this gem with Rails #{version}"
         task version => [:gemspec, 'shared:vendor_dependencies'] do
+          line = ENV['line']
+
           banner {
-            "Testing Rails #{version}"
+            "Running scenarios against Rails #{version}" + (line ? " (at line #{line})" : '')
           }
           ENV['RAILS_VERSION'] = version
-          puts "running cucumber"
-          system("cucumber --format #{cucumber_format} #{options} features/rails.feature")
+
+          system("cucumber --format #{cucumber_format} #{options} features/rails.feature#{line ? ':' + line : ''}")
         end
       end
 
