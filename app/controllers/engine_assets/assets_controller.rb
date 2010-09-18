@@ -1,4 +1,6 @@
 class EngineAssets::AssetsController < ApplicationController
+  unloadable # deprecated?
+
   layout        nil
   before_filter :expire, :set_headers
   after_filter  :cache

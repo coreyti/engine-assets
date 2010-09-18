@@ -1,4 +1,5 @@
 class EngineAssets::StylesheetsController < EngineAssets::AssetsController
+  unloadable # deprecated?
 
   private
 

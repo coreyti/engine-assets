@@ -1,5 +1,6 @@
 Rails Versions
 ------------------------------------------------------------------------------
+  * 2.3.4 (supported)
   * 2.3.5 (supported)
   * 2.3.9 (supported)
   * 3.0.0 (almost... need to complete AssetTagHelper-related stuff)

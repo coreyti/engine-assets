@@ -1,4 +1,5 @@
 class EngineAssets::JavascriptsController < EngineAssets::AssetsController
+  unloadable # deprecated?
 
   private
 
