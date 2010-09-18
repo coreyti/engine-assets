@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
      "features/support/terminal.rb",
      "init.rb",
      "lib/engine-assets.rb",
+     "lib/engine_assets/engine.rb",
      "lib/engine_assets/extensions/rails/assets.rb",
      "lib/engine_assets/public_locator.rb",
      "spec/app/controllers/engine_assets/javascripts_controller_spec.rb",

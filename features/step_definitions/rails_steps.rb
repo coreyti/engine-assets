@@ -83,7 +83,14 @@ Then /^I should receive a response matching the following:$/ do |table|
 
   if hash['200']
     result['status'].should == 200
-    result['body']  .should include(hash['200'])
+
+    if (header = result['headers']['X-Sendfile'])
+      # Rack middleware (likely Rails 3)
+      content = File.readlines(header).join
+      content.should include(hash['200'])
+    else
+      result['body'].should include(hash['200'])
+    end
   else
     raise "Don't know how to handle #{hash.inspect}"
   end
