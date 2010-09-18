@@ -12,9 +12,23 @@ task :default => ['spec:rails:all', 'cucumber:rails:all']
 
 # shared
 # ----------------------------------------------------------------------------
+RAILS_VERSIONS  = { :supported => [], :unsupported => [] }
+File.readlines('RAILS_VERSIONS').each do |line|
+  line.strip!
+
+  if (m = /\* ([0-9.]+)/.match(line))
+    if line =~ /supported/
+      RAILS_VERSIONS[:supported] << m[1]
+    else
+      RAILS_VERSIONS[:unsupported] << m[1]
+    end
+  end
+end
+RAILS_VERSIONS[:all] = RAILS_VERSIONS[:supported] +
+                       RAILS_VERSIONS[:unsupported]
+
 GEM_ROOT        = File.dirname(__FILE__).freeze
 LOCAL_GEM_ROOT  = File.join(GEM_ROOT, 'tmp', 'local_gems').freeze
-RAILS_VERSIONS  = IO.read('RAILS_VERSIONS').strip.split("\n")
 RSPEC_1_VERSION = '1.3.0'
 RSPEC_2_VERSION = '2.0.0.beta.22'
 LOCAL_GEMS      = [
@@ -26,7 +40,7 @@ LOCAL_GEMS      = [
   ['rspec',        RSPEC_2_VERSION],
   ['rspec-rails',  RSPEC_2_VERSION],
   ['sqlite3-ruby', nil]
-] + RAILS_VERSIONS.collect { |version| ['rails', version] }
+] + RAILS_VERSIONS[:supported].collect { |version| ['rails', version] }
 
 def banner
   puts '-' * 80
@@ -84,7 +98,7 @@ begin
   # Thanks thoughtbot...
   def define_cucumber_rails(options = '')
     namespace :rails do
-      RAILS_VERSIONS.each do |version|
+      RAILS_VERSIONS[:supported].each do |version|
         desc "Run features for this gem with Rails #{version}"
         task version => [:gemspec, 'shared:vendor_dependencies'] do
           line = ENV['line']
@@ -98,8 +112,17 @@ begin
         end
       end
 
+      RAILS_VERSIONS[:unsupported].each do |version|
+        desc "Run features for this gem with Rails #{version}"
+        task version => [:gemspec] do
+          banner {
+            "Rails #{version} (unsupported -- see note in RAILS_VERSIONS)"
+          }
+        end
+      end
+
       desc "Run features for this gem with all Rails versions"
-      task :all => RAILS_VERSIONS
+      task :all => RAILS_VERSIONS[:all]
     end
   end
 
@@ -192,7 +215,7 @@ def define_spec_rails
   end
 
   namespace :rails do
-    RAILS_VERSIONS.each do |version|
+    RAILS_VERSIONS[:supported].each do |version|
       desc "Run specs for this gem with Rails #{version}"
       task version => [:gemspec, 'shared:vendor_dependencies'] do
         banner {
@@ -213,9 +236,20 @@ def define_spec_rails
       end
     end
 
+    RAILS_VERSIONS[:unsupported].each do |version|
+      desc "Run specs for this gem with Rails #{version}"
+      task version => [:gemspec] do
+        banner {
+          "Rails #{version} (unsupported -- see note in RAILS_VERSIONS)"
+        }
+      end
+    end
+
     desc "Run specs for this gem with all Rails versions"
-    task :all => [:gemspec, 'shared:vendor_dependencies'] do
-      RAILS_VERSIONS.each { |version| system("rake spec:rails:#{version}") }
+    task :all do
+      RAILS_VERSIONS[:all].each do |version|
+        system("rake spec:rails:#{version}")
+      end
     end
   end
 end
