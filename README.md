@@ -14,27 +14,35 @@ assets:
 Requirements
 ------------------------------------------------------------------------------
 
-  * Rails  
-    supported versions:
-    * 2.3.5
-    * 2.3.9
-    * 3.0.0 (requires Ruby 1.8.7)
+  * Rails (see RAILS_VERSIONS file for supported versions)
+
 
 Installation
 ------------------------------------------------------------------------------
 
+  * TODO: basic gem installation.
+  * TODO: bundler style.
 
 Usage
 ------------------------------------------------------------------------------
 
-  * Rake Tasks
+  * TODO: write/find a related engine.
+  * TODO: require/load engine-assets and related engine in your Rails app.
+  * TODO: (optional) add Rails initializer (and use patched asset tag).
+
 
 Customization
 ------------------------------------------------------------------------------
 
+  * TODO: Rails initializer to selectively reference files.
+
 
 TODO
 ------------------------------------------------------------------------------
+
+  * Add spec/feature coverage for 'reloadable' controllers.
+  * Add spec/feature coverage for gem-installed engine, rather than plugins.
+  * Add spec/feature coverage for rails/init.rb making a difference.
 
 
 Contributors
@@ -52,4 +60,7 @@ Acknowledgments
   * Michael Bleigh <http://mbleigh.com>  
     For insight regarding techniques for running RSpec specs against multiple
     versions of Rails (in acts-as-taggable-on).
+  * Jon Swope <http://jonswope.com>  
+    For [his post](http://jonswope.com/2010/07/25/rails-3-engines-plugins-and-static-assets/ "Rails 3 Engines/Plugins and Static Assets")
+    on serving static assets from Rails 3 Engines.
 
