@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
      "lib/engine_assets/engine.rb",
      "lib/engine_assets/extensions/rails/assets.rb",
      "lib/engine_assets/public_locator.rb",
+     "rails/init.rb",
      "spec/app/controllers/engine_assets/javascripts_controller_spec.rb",
      "spec/app/controllers/engine_assets/stylesheets_controller_spec.rb",
      "spec/lib/engine-assets_spec.rb",
