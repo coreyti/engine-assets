@@ -5,7 +5,7 @@ describe EngineAssets::PublicLocator do
 
   before do
     @base_path = File.join('fixtures', 'public')
-    @full_path = File.join(basedir, 'spec', 'support', 'fixtures')
+    @full_path = File.join(SPEC_DIR, 'support', 'fixtures')
     @find_path = '/javascripts/dual.js'
     @miss_path = '/javascripts/miss.js'
 
@@ -18,16 +18,30 @@ describe EngineAssets::PublicLocator do
       it "raises an exception" do
         lambda {
           EngineAssets::PublicLocator.register('bogus')
-        }.should raise_error(Errno::ENOENT)
+        }.should raise_error(ArgumentError)
       end
     end
 
     context "when the suggest path does not contain a 'public' directory" do
-      it "raises an exception" do
+      before do
+        EngineAssets::PublicLocator.send(:clear)
+      end
+
+      it "does not raise an exception" do
         lambda {
           EngineAssets::PublicLocator.register(File.dirname(__FILE__))
-        }.should raise_error(Errno::ENOENT)
+        }.should_not raise_error
       end
+
+      it "does not add the path" do
+        EngineAssets::PublicLocator.register(File.dirname(__FILE__))
+        EngineAssets::PublicLocator.paths.should be_empty
+      end
+      # it "raises an exception" do
+      #   lambda {
+      #     EngineAssets::PublicLocator.register(File.dirname(__FILE__))
+      #   }.should raise_error(Errno::ENOENT)
+      # end
     end
 
     context "when the suggest path is valid" do
@@ -45,6 +59,16 @@ describe EngineAssets::PublicLocator do
     end
 
     context "when the requested sub-path is not located" do
+      it "returns nil" do
+        EngineAssets::PublicLocator.locate(miss_path).should be_nil
+      end
+    end
+
+    context "when no asset-providing engines have registered" do
+      before do
+        EngineAssets::PublicLocator.send(:clear)
+      end
+
       it "returns nil" do
         EngineAssets::PublicLocator.locate(miss_path).should be_nil
       end

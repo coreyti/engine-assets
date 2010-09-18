@@ -19,3 +19,8 @@ rdoc
 pkg
 
 ## PROJECT::SPECIFIC
+.bundle/config
+.rspec
+.tmtags
+scratch.*
+tmp

@@ -1,0 +1,16 @@
+source "http://rubygems.org"
+
+gem 'rails',        '3.0.0'
+gem 'rr',           '~> 1.0.0'
+gem 'rspec',        '~> 2.0.0.beta.22'
+gem 'rspec-rails',  '~> 2.0.0.beta.22'
+gem 'sqlite3-ruby', '~> 1.3.1'
+
+# NOTE:
+# grouping this under 'development' means the engine's spec:rails:3.0.0 task
+# is able to load the rspec gems (because it does not use Bundler.setup),
+# while the Rails app does not blow up (it doesn't want to reference rspec).
+# group :development do
+#   gem 'rspec',        '~> 2.0.0.beta.22'
+#   gem 'rspec-rails',  '~> 2.0.0.beta.22'
+# end

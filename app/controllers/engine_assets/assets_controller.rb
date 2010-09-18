@@ -1,4 +1,4 @@
-class EngineAssets::AssetsController < ActionController::Base
+class EngineAssets::AssetsController < ApplicationController
   layout        nil
   before_filter :expire, :set_headers
   after_filter  :cache
@@ -6,9 +6,15 @@ class EngineAssets::AssetsController < ActionController::Base
   def show
     flat_file = EngineAssets::PublicLocator.locate(File.join(controller_name, [params[:path], params[:format]].join('.')))
     if(flat_file)
+      # TODO: consider sending IO, rather than rendering
       render(:file => flat_file)
     else
       begin
+        # TODO:
+        #   * consider removing the engine_assets dir to get:
+        #     /javascripts/path/file.js.erb
+        #   * consider (resourceful):
+        #     /path/file.js.erb
         render(:template => File.join('engine_assets', controller_name, params[:path]), :layout => false)
       rescue ActionView::MissingTemplate
         head :not_found

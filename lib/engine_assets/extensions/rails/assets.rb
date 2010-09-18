@@ -1,3 +1,9 @@
+# TODO:
+#   * find a mechanism to do this without monkey-patching Rails
+#   * add an autoload option to load all from plugins, or similar
+#   * allow engines to indicate (automatically when #register is called?)
+#     which assets to include.
+
 module ActionView::Helpers::AssetTagHelper
   def expand_javascript_sources_with_engine_assets(sources, recursive = false)
     if sources.include?(:all)
