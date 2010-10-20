@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{engine-assets}
-  s.version = "0.5.1"
+  s.version = "0.6.0.pre1"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Innis"]
-  s.date = %q{2010-09-18}
+  s.date = %q{2010-11-03}
   s.description = %q{A Rails Engine, which enables Rails Engines to provide assets (javascript, css and images)}
   s.email = %q{support@coolerator.net}
   s.extra_rdoc_files = [
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
      "init.rb",
      "lib/engine-assets.rb",
      "lib/engine_assets/engine.rb",
-     "lib/engine_assets/extensions/rails/assets.rb",
+     "lib/engine_assets/extensions/action_view/helpers/asset_tag_helper.rb",
      "lib/engine_assets/public_locator.rb",
      "rails/init.rb",
      "spec/app/controllers/engine_assets/javascripts_controller_spec.rb",

@@ -10,17 +10,7 @@ class EngineAssets::PublicLocator
       public_path = File.join(full_path, 'public')
 
       if File.exist?(public_path)
-        # TODO:
-        #   * spec me
-        #   * split me into separate implementations
-
-        if defined?(Rails) && Rails::VERSION::MAJOR == 3
-          # Rails 3
-          Rails.configuration.middleware.use ::ActionDispatch::Static, public_path
-        else
-          # Rails 2
-          paths << public_path
-        end
+        paths << public_path
       end
     end
 
@@ -34,11 +24,10 @@ class EngineAssets::PublicLocator
       nil
     end
 
-
     private
 
-    def clear
-      @paths = nil
-    end
+      def clear
+        @paths = nil
+      end
   end
 end

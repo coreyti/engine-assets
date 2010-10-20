@@ -44,6 +44,14 @@ TODO
   * Add spec/feature coverage for gem-installed engine, rather than plugins.
   * Add spec/feature coverage for rails/init.rb making a difference.
 
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:905:in `exist?'
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:905:in `asset_file_path!'
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:878:in `ensure_javascript_sources!'
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:877:in `each'
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:877:in `ensure_javascript_sources!'
+        actionpack (3.0.0) lib/action_view/helpers/asset_tag_helper.rb:361:in `javascript_include_tag'
+        app/views/layouts/application.html.erb:12:in `_app_views_layouts_application_html_erb___615183510_2191829220_0'
+
 
 Contributors
 ------------------------------------------------------------------------------
