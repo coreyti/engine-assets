@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     ".wiprc",
      "Gemfile",
      "Gemfile.lock",
      "LICENSE",
